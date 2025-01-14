@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alrededor de los EEUU</title>
+    <link rel="stylesheet" href="pages/index.css" />
+    <link rel="icon" href="./images/favicon.png" />
+  </head>
+  <body>
+    <div class="page">
+      <!--Primeramnete, gracias por esas corecciones y recomendaciones para perfeccionar el código de mi proyecto.
+          Con respcto a cuando la imagen se expande lo hice así porque la mayoría de las imágenes están forma 
+          horizontal, y sinceramente no se como hacer para todas, independientemente de su tamaño se centren 
+          junto al botón de cerrar la ventana modal, me gustaria que me diera sugerencias y (o) recomendaciones
+          sobre como poder mejorar o arreglar eso. Muchas gracias de antemano -->
+      <header class="header">
+        <img
+          src="./images/header-logo.png"
+          alt="Header-Logo"
+          class="header__logo"
+        />
+        <p class="header__line"></p>
+      </header>
+      <main class="main">
+        <div class="profile">
+          <img
+            src="./images/profile-avatar.png"
+            class="profile__avatar"
+            alt="Profile-Avatar"
+          />
+          <div class="profile__info">
+            <h1 class="profile__info-name">Jacques Cousteau</h1>
+
+            <button class="profile__info-link"></button>
+
+            <p class="profile__info-description">Explorador</p>
+          </div>
+          <button class="profile__info_add"></button>
+        </div>
+
+        <div class="popup" id="edit">
+          <button class="popup__exit"></button>
+
+          <form class="popup__form popup__form_edit" id="form">
+            <h2 class="popup__form_title">Editar Perfil</h2>
+            <input
+              type="text"
+              class="popup__input"
+              placeholder="Nombre"
+              id="name"
+              required
+              minlength="2"
+              maxlength="400"
+            />
+            <p class="popup__line"></p>
+            <span class="popup__input_type_error" id="name-error"></span>
+            <input
+              type="text"
+              class="popup__input popup__input_content"
+              placeholder="Acerca de mí"
+              id="description"
+              required
+              minlength="2"
+              maxlength="200"
+            />
+
+            <p class="popup__line"></p>
+            <span class="popup__input_type_error" id="description-error"></span>
+            <button class="popup__button" type="submit" id="button">
+              Guardar
+            </button>
+          </form>
+        </div>
+        <div class="popup" id="card">
+          <button class="popup__exit"></button>
+          <form class="popup__form popup__form_cards" id="cards">
+            <h2 class="popup__form_title">Nueva Trajeta</h2>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              class="popup__input"
+              placeholder="Título"
+              required
+              minlength="2"
+              maxlength="30"
+            />
+            <p class="popup__line"></p>
+            <span class="popup__input_type_error" id="title-error"></span>
+            <input
+              type="url"
+              name="url"
+              id="url"
+              class="popup__input popup__input_content"
+              placeholder="URL"
+              required
+            />
+            <p class="popup__line"></p>
+            <span class="popup__input_type_error" id="url-error"></span>
+            <button class="popup__button" type="submit" id="save">
+              Guardar
+            </button>
+          </form>
+        </div>
+        <div class="grid"></div>
+        <template id="template">
+          <div class="grid__card">
+            <div class="card__image">
+              <button class="card__delete"></button>
+              <img src="" alt="" class="grid__image" />
+            </div>
+            <h3 class="grid__name"></h3>
+            <button class="grid__like"></button>
+          </div>
+        </template>
+        <div class="image__card" id="image-card">
+          <button class="image__close"></button>
+          <img src="" alt="" class="image__show" id="image-show" />
+          <p class="image__name"></p>
+        </div>
+      </main>
+      <footer class="footer">
+        <p class="footer__paragraph">© 2024 Around The U.S.</p>
+      </footer>
+    </div>
+
+    <script type="module" src="./scripts/script.js"></script>
+    <script type="module" src="./scripts/Card.js"></script>
+    <script type="module" src="./scripts/FormValidator.js"></script>
+    <script type="module" src="./scripts/utils.js"></script>
+    <p class="miniPrueba"></p>
+  </body>
+</html>

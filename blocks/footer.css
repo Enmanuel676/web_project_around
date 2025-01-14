@@ -1,0 +1,34 @@
+.footer {
+  height: 18px;
+  width: 24.844%;
+  margin-top: 67px;
+  margin-left: 200px;
+  margin-bottom: 60px;
+}
+.footer__paragraph {
+  color: #545454;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21.78px;
+  height: 18px;
+  margin: 0;
+}
+@media screen and (max-width: 1025px) {
+  .footer {
+    width: 88.125%;
+    margin-left: 65px;
+    margin-top: 50px;
+    margin-bottom: 36px;
+    height: 14px;
+  }
+  .footer__paragraph {
+    font-size: 14px;
+    line-height: 16.94px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .footer {
+    margin-left: 19px;
+  }
+}

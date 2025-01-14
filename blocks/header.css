@@ -1,0 +1,31 @@
+.header {
+  margin: auto;
+  margin-top: 45px;
+  width: 68.75%;
+  height: 74px;
+}
+.header__logo {
+  margin: 0;
+  height: 33px;
+  width: 19.659%;
+}
+.header__line {
+  border: 1px solid #545454;
+  margin-top: 41px;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 425px) {
+  .header {
+    width: 100%;
+    margin: 0;
+    margin-top: 28px;
+  }
+  .header__logo {
+    width: 39.375%;
+    margin-left: 27px;
+  }
+  .header__line {
+    margin-top: 32px;
+  }
+}

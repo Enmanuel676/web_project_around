@@ -1,0 +1,239 @@
+.grid {
+  display: -ms-grid;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-rows: auto;
+  column-gap: 16px;
+  row-gap: 16px;
+  margin-top: 50px;
+}
+.grid__card {
+  position: relative;
+  background-color: #fff;
+  border-radius: 11px;
+  max-width: 280px;
+  height: 361px;
+  z-index: 1;
+}
+.card__image {
+  position: relative;
+}
+.card__delete {
+  position: absolute;
+  background-image: url(../images/delete-card.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  width: 28px;
+  height: 19.3px;
+  margin-left: 245px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.grid__image {
+  width: 100%;
+  height: 282px;
+  margin: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.grid__name {
+  color: #000;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 216px;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29.05px;
+  margin-top: 25px;
+  margin-left: 21px;
+  margin-bottom: 0;
+
+  height: 27px;
+}
+
+.grid__like {
+  position: absolute;
+  bottom: 28.5px;
+  margin-left: 247px;
+  height: 19px;
+  width: 21px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  background-image: url(../images/heart.png);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.grid__like:hover {
+  background-image: url(../images/heart-over.png);
+}
+.grid__like_active {
+  height: 19px;
+  width: 21px;
+  margin-top: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  background-image: url(../images/heart-active.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.grid__card_delete {
+  position: absolute;
+  left: 500px;
+}
+
+.image__card {
+  display: none;
+}
+.image__card_hidden {
+  width: 100%;
+  height: 1210px;
+  backdrop-filter: blur(3px);
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.image__close {
+  position: absolute;
+  left: 970px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  background-image: url(../images/close-edit.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 40px;
+  z-index: 3;
+  top: 50px;
+}
+.image__close:hover {
+  background-image: url(../images/close-edit-hover.png);
+}
+.image__show {
+  position: absolute;
+  max-width: 816px;
+  height: 540px;
+  left: 250px;
+  top: 90px;
+}
+.image__name {
+  position: absolute;
+  max-width: 291px;
+  top: 626px;
+  left: 250px;
+  color: white;
+  background-color: black;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.52px;
+}
+@media screen and (max-width: 1025px) {
+  .image__card_hidden {
+    height: 1191px;
+  }
+  .image__close {
+    left: 870px;
+  }
+  .image__show {
+    left: 150px;
+  }
+  .image__name {
+    left: 150px;
+  }
+}
+@media screen and(max-width: 1005px) {
+  .image__card_hidden {
+    height: 1574px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .image__close {
+    left: 620px;
+  }
+  .image__show {
+    max-width: 570px;
+    left: 90px;
+  }
+}
+
+@media screen and (max-width: 665px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .grid__card {
+    width: 100%;
+  }
+  .image__card_hidden {
+    height: 2723px;
+  }
+  .image__close {
+    left: 530px;
+  }
+  .image__show {
+    max-width: 500px;
+    left: 70px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .grid {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 2310px;
+    margin: auto;
+    margin-top: 36px;
+    row-gap: 20px;
+    width: 100%;
+  }
+  .image__close {
+    margin-top: 90px;
+    left: 320px;
+  }
+  .image__show {
+    margin-top: 90px;
+    height: 299px;
+    width: 280px;
+  }
+  .image__name {
+    top: 480px;
+    left: 70px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .image__close {
+    left: 290px;
+  }
+  .image__show {
+    left: 45px;
+  }
+  .image__name {
+    left: 45px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .image__close {
+    left: 265px;
+  }
+  .image__show {
+    left: 20px;
+  }
+  .image__name {
+    left: 20px;
+  }
+}
