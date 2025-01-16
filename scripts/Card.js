@@ -71,6 +71,8 @@ export class CardGenerator extends CardManager {
     cardsForm.addEventListener("submit", (event) => {
       event.preventDefault();
       this.generateCards();
+      cardsTitle.value.reset();
+      cardsLink.value.reset();
     });
   }
 }
