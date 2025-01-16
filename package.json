@@ -1,0 +1,19 @@
+{
+  "name": "proyecto-11",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Enmanuel676/web_project_around_5.git"
+  },
+  "author": "Enmanuel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Enmanuel676/web_project_around_5/issues"
+  },
+  "homepage": "https://github.com/Enmanuel676/web_project_around_5#readme",
+  "description": ""
+}
