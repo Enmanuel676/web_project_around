@@ -12,7 +12,6 @@ export class CardManager {
   constructor(title, link) {
     this.title = title;
     this.link = link;
-
     this.gridCard = template.querySelector(".grid__card").cloneNode(true);
     this.cardTitle = this.gridCard.querySelector(".grid__name");
     this.cardImage = this.gridCard.querySelector(".grid__image");
