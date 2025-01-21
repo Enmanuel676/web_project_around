@@ -68,3 +68,16 @@ export class Card {
     this.imageCard.classList.add("image__card");
   }
 }
+export class Popup extends Card {
+  constructor() {
+    super();
+    this._prueba = this.prueba.bind(this);
+    return this._prueba;
+  }
+  prueba() {
+    return "hola";
+  }
+}
+const card = new Card();
+
+const popups = new Popup();
