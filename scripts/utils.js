@@ -68,14 +68,3 @@ export class Card {
     this.imageCard.classList.add("image__card");
   }
 }
-
-export class Popup extends Card {
-  constructor() {}
-  prueba() {
-    console.log("Hola");
-  }
-}
-
-export class PupupwithImage extends Card {
-  constructor() {}
-}
