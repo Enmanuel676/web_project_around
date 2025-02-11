@@ -68,3 +68,69 @@ export class Card {
     this.imageCard.classList.add("image__card");
   }
 }
+
+class Popup {
+  constructor(popup) {
+    this.popup = popup;
+  }
+  open() {
+    this.popup.classList.remove("popup");
+    this.popup.classList.add("popup__close");
+  }
+  close() {
+    this.popup.classList.remove("popup__close");
+    this.popup.classList.add("popup");
+  }
+  _handleEscClose(evt) {
+    if (evt.key === "Escape") {
+      this.close();
+    }
+  }
+  setEventListeners() {
+    this.popup.addEventListener("click", (evt) => {
+      if (
+        evt.target.classList.contains("popup__close") ||
+        evt.target.classList.contains("popup")
+      ) {
+        this.close();
+      }
+    });
+  }
+}
+class PopupWithImage extends Popup {
+  constructor(popup) {
+    super(popup);
+  }
+  open(title, link) {
+    super.open();
+    this.popup.querySelector(".image__name").textContent = title;
+    this.popup.querySelector(".image__show").src = link;
+    this.popup.querySelector(".image__show").alt = title;
+  }
+}
+
+class PopupWithForm extends Popup {
+  constructor(popup, submitForm) {
+    super(popup);
+    this.submitForm = submitForm;
+  }
+  _getInputValues() {
+    const inputList = this.popup.querySelectorAll(".popup__input");
+    const formValues = {};
+    inputList.forEach((input) => {
+      formValues[input.name] = input.value;
+    });
+    return formValues;
+  }
+  setEventListeners() {
+    super.setEventListeners();
+    this.popup.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this.submitForm(this._getInputValues());
+    });
+  }
+  close() {
+    super.close();
+    this.popup.querySelector(".popup__form").reset();
+  }
+}
