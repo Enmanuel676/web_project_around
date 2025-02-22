@@ -102,10 +102,11 @@ saveDisabled();
 //Import and implement the classes in the script.js file
 
 //utils.js
-import { Card } from "./utils.js";
-const popups = new Card();
-popups._eventListeners();
+import { Card, Popup, PopupWithImage } from "./utils.js";
 
+const popup = new Popup();
+
+popup.setEventListeners();
 //Card.js
 import { CardManager, CardGenerator } from "./Card.js";
 const card = new CardManager();
@@ -114,8 +115,8 @@ const generateCards = new CardGenerator();
 generateCards.eventListener();
 initialCards.forEach((element) => {
   const card = new CardManager(element.title, element.link);
+
   card.create();
-  card.eventListeners();
 });
 
 card.eventListeners();

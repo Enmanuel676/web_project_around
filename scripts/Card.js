@@ -5,8 +5,9 @@ const cardsLink = document.querySelector("#url");
 const grid = document.querySelector(".grid");
 const template = document.querySelector("#template").content;
 const gridCard = template.querySelector(".grid__card").cloneNode(true);
-import { Card } from "./utils.js";
-const popup = new Card();
+import { Popup, PopupWithImage } from "./utils.js";
+
+const popup = new Popup();
 
 export class CardManager {
   constructor(title, link) {
@@ -18,6 +19,7 @@ export class CardManager {
     this.cardLike = this.gridCard.querySelector(".grid__like");
     this.imageClose = document.querySelector(".image__close");
     this.imageCard = document.querySelector("#image-card");
+    this.PopupWithImage = new PopupWithImage();
   }
   create() {
     this.cardTitle.textContent = this.title;
@@ -30,20 +32,6 @@ export class CardManager {
   eventListeners() {
     this.cardLike.addEventListener("click", () => {
       this.cardLike.classList.toggle("grid__like_active");
-    });
-    this.cardImage.addEventListener("click", () => {
-      popup.openImage(this.title, this.link);
-    });
-    this.imageClose.addEventListener("click", () => {
-      popup.closeImage();
-    });
-    this.imageCard.addEventListener("dblclick", () => {
-      popup.closeImage();
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        popup.closeImage();
-      }
     });
   }
 

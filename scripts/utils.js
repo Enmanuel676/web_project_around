@@ -1,4 +1,4 @@
-const popup = document.querySelector(".popup");
+const popup = document.querySelectorAll(".popup");
 //Initial Code Profile
 const edit = document.querySelector(".profile__info-link");
 const pageEdit = document.querySelector("#edit");
@@ -7,105 +7,104 @@ const exit = document.querySelectorAll(".popup__exit");
 const addCard = document.querySelector(".profile__info_add");
 const pageCards = document.querySelector("#card");
 const cardsForm = document.querySelector("#cards");
+const cardImage = document.querySelector(".grid__image");
+const imageCard = document.querySelector("#image-card");
+const imageClose = document.querySelector(".image__close");
+const imageName = document.querySelector(".image__name");
+const imageShow = document.querySelector(".image__show");
 export class Card {
-  constructor(imageCard, imageName, imageShow) {
-    this.openEditPopup = this.openEditPopup.bind(this);
-    this.openCardsPopup = this.openCardsPopup.bind(this);
-    this.closePopups = this.closePopups.bind(this);
-    this._escapeKey = this._escapeKey.bind(this);
-    this.enterKey = this.enterKey.bind(this);
-    this._eventListeners = this.eventListeners.bind(this);
-    this.imageCard = document.querySelector("#image-card");
-    this.imageName = document.querySelector(".image__name");
-    this.imageShow = document.querySelector(".image__show");
+  constructor(handleCardClick) {
+    this.handleCardClick = handleCardClick;
+    this.PopupWithImage = new PopupWithImage();
+    this.setEventListeners();
   }
-  openEditPopup() {
-    pageEdit.classList.remove("popup");
-    pageEdit.classList.add("popup__close");
-  }
-  openCardsPopup() {
-    pageCards.classList.remove("popup");
-    pageCards.classList.add("popup__close");
-  }
-
-  closePopups() {
-    pageEdit.classList.remove("popup__close");
-    pageEdit.classList.add("popup");
-    pageCards.classList.remove("popup__close");
-    pageCards.classList.add("popup");
-  }
-  _escapeKey(evt) {
-    if (evt.key === "Escape") {
-      this.closePopups();
-    }
-  }
-  enterKey(evt) {
-    if (evt.key === "Enter") {
-      this.closePopups();
-    }
-  }
-
-  eventListeners() {
-    addCard.addEventListener("click", this.openCardsPopup);
-    edit.addEventListener("click", this.openEditPopup);
-
-    document.addEventListener("keydown", this._escapeKey);
-    cardsForm.addEventListener("submit", this.closePopups);
-    exit.forEach((exit) => {
-      exit.addEventListener("click", this.closePopups);
+  setEventListeners() {
+    this.cardImage.addEventListener("click", () => {
+      popup.openImage(this.title, this.link);
     });
-
-    popup.addEventListener("dblclick", this.closePopups);
-  }
-  openImage(title, link) {
-    this.imageCard.classList.remove("image__card");
-    this.imageCard.classList.add("image__card_hidden");
-    this.imageName.textContent = title;
-    this.imageShow.src = link;
-    this.imageShow.alt = title;
-  }
-  closeImage() {
-    this.imageCard.classList.add("image__card");
+    this.imageClose.addEventListener("click", () => {
+      popup.closeImage();
+    });
+    this.imageCard.addEventListener("dblclick", () => {
+      popup.closeImage();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        popup.closeImage();
+      }
+    });
   }
 }
-
-class Popup {
+export class Popup {
   constructor(popup) {
     this.popup = popup;
+    this.edit = document.querySelector("#edit");
+    this.form = document.querySelector("#card");
   }
   open() {
-    this.popup.classList.remove("popup");
-    this.popup.classList.add("popup__close");
+    this._openEdit();
+    this._openForm();
   }
+  _openEdit() {
+    this.edit.classList.remove("popup");
+    this.edit.classList.add("popup__close");
+  }
+  _openForm() {
+    this.form.classList.remove("popup");
+    this.form.classList.add("popup__close");
+  }
+
   close() {
-    this.popup.classList.remove("popup__close");
-    this.popup.classList.add("popup");
+    this._closeEdit();
+    this._closeForm();
   }
+  _closeEdit() {
+    this.edit.classList.remove("popup__close");
+    this.edit.classList.add("popup");
+  }
+  _closeForm() {
+    this.form.classList.remove("popup__close");
+    this.form.classList.add("popup");
+  }
+
   _handleEscClose(evt) {
     if (evt.key === "Escape") {
       this.close();
     }
   }
+  _handleEnterClose(evt) {
+    if (evt.key === "Enter") {
+      this.close();
+    }
+  }
+
   setEventListeners() {
-    this.popup.addEventListener("click", (evt) => {
-      if (
-        evt.target.classList.contains("popup__close") ||
-        evt.target.classList.contains("popup")
-      ) {
-        this.close();
-      }
+    edit.addEventListener("click", this._openEdit.bind(this));
+    addCard.addEventListener("click", this._openForm.bind(this));
+    document.addEventListener("keydown", this._handleEscClose.bind(this));
+    document.addEventListener("keydown", this._handleEnterClose.bind(this));
+    exit.forEach((exit) => {
+      exit.addEventListener("click", this.close.bind(this));
+    });
+    popup.forEach((popup) => {
+      popup.addEventListener("dblclick", this.close.bind(this));
     });
   }
 }
-class PopupWithImage extends Popup {
+
+export class PopupWithImage extends Popup {
   constructor(popup) {
     super(popup);
   }
   open(title, link) {
-    super.open();
-    this.popup.querySelector(".image__name").textContent = title;
-    this.popup.querySelector(".image__show").src = link;
-    this.popup.querySelector(".image__show").alt = title;
+    imageCard.classList.remove("image__card");
+    imageCard.classList.add("image__card_hidden");
+    imageName.textContent = title;
+    imageShow.src = link;
+    imageShow.alt = title;
+  }
+  close() {
+    imageCard.classList.add("image__card");
   }
 }
 
@@ -124,13 +123,13 @@ class PopupWithForm extends Popup {
   }
   setEventListeners() {
     super.setEventListeners();
-    this.popup.addEventListener("submit", (evt) => {
+    popup.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this.submitForm(this._getInputValues());
     });
   }
   close() {
     super.close();
-    this.popup.querySelector(".popup__form").reset();
+    popup.querySelector(".popup__form").reset();
   }
 }
