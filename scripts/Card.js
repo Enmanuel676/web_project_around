@@ -25,8 +25,19 @@ export class CardManager {
     this.cardTitle.textContent = this.title;
     this.cardImage.src = this.link;
     this.cardImage.alt = this.title;
+    this.setEventListeners();
     grid.append(this.gridCard);
     return this.gridCard;
+  }
+
+  setEventListeners() {
+    this.cardImage.addEventListener("click", () => {
+      this.PopupWithImage.open(this.title, this.link);
+    });
+    
+    this.cardLike.addEventListener("click", () => {
+      this.cardLike.classList.toggle("grid__like_active");
+    });
   }
 
   eventListeners() {
@@ -52,7 +63,6 @@ export class CardGenerator extends CardManager {
     const link = cardsLink.value;
     const cardManager = new CardManager(title, link);
     const newCard = cardManager.create();
-    cardManager.eventListeners();
     grid.prepend(newCard);
   }
   eventListener() {

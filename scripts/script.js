@@ -105,17 +105,40 @@ saveDisabled();
 import { Card, Popup, PopupWithImage } from "./utils.js";
 
 const popup = new Popup();
-
 popup.setEventListeners();
+
 //Card.js
 import { CardManager, CardGenerator } from "./Card.js";
+
+// Configurar el manejo de clics en la imagen para cerrar el popup
+const imageClose = document.querySelector(".image__close");
+
+// Usar la variable imageCard ya declarada en la parte superior
+imageClose.addEventListener("click", () => {
+  imageCard.classList.remove("image__card_hidden");
+  imageCard.classList.add("image__card");
+});
+
+// Cerrar con Escape
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && imageCard.classList.contains("image__card_hidden")) {
+    imageCard.classList.remove("image__card_hidden");
+    imageCard.classList.add("image__card");
+  }
+});
+
+// Cerrar con doble clic
+imageCard.addEventListener("dblclick", () => {
+  imageCard.classList.remove("image__card_hidden");
+  imageCard.classList.add("image__card");
+});
+
 const card = new CardManager();
 card.deleteCards();
 const generateCards = new CardGenerator();
 generateCards.eventListener();
 initialCards.forEach((element) => {
   const card = new CardManager(element.title, element.link);
-
   card.create();
 });
 

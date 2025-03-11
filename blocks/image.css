@@ -1,0 +1,54 @@
+.image__card {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.image__card_hidden {
+  display: flex;
+}
+
+.image__close {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 40px;
+  height: 40px;
+  background-image: url(../images/exit.png);
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.image__show {
+  max-width: 75vw;
+  max-height: 75vh;
+  object-fit: contain;
+}
+
+.image__name {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  font-size: 12px;
+  margin: 0;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+@media screen and (max-width: 768px) {
+  .image__close {
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+  }
+}

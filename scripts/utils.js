@@ -16,21 +16,33 @@ export class Card {
   constructor(handleCardClick) {
     this.handleCardClick = handleCardClick;
     this.PopupWithImage = new PopupWithImage();
+    this.cardImage = document.querySelector(".grid__image");
+    this.imageClose = document.querySelector(".image__close");
+    this.imageCard = document.querySelector("#image-card");
+    this.title = "";
+    this.link = "";
     this.setEventListeners();
   }
   setEventListeners() {
-    this.cardImage.addEventListener("click", () => {
-      popup.openImage(this.title, this.link);
+    this.cardImage.addEventListener("click", (event) => {
+      const card = event.target.closest(".grid__card");
+      if (card) {
+        const title = card.querySelector(".grid__name").textContent;
+        const link = event.target.src;
+        this.title = title;
+        this.link = link;
+        this.PopupWithImage.open(title, link);
+      }
     });
     this.imageClose.addEventListener("click", () => {
-      popup.closeImage();
+      this.PopupWithImage.close();
     });
     this.imageCard.addEventListener("dblclick", () => {
-      popup.closeImage();
+      this.PopupWithImage.close();
     });
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
-        popup.closeImage();
+        this.PopupWithImage.close();
       }
     });
   }
@@ -95,16 +107,20 @@ export class Popup {
 export class PopupWithImage extends Popup {
   constructor(popup) {
     super(popup);
+    this.imageCard = document.querySelector("#image-card");
+    this.imageShow = document.querySelector(".image__show");
+    this.imageName = document.querySelector(".image__name");
   }
   open(title, link) {
-    imageCard.classList.remove("image__card");
-    imageCard.classList.add("image__card_hidden");
-    imageName.textContent = title;
-    imageShow.src = link;
-    imageShow.alt = title;
+    this.imageCard.classList.remove("image__card");
+    this.imageCard.classList.add("image__card_hidden");
+    this.imageName.textContent = title;
+    this.imageShow.src = link;
+    this.imageShow.alt = title;
   }
   close() {
-    imageCard.classList.add("image__card");
+    this.imageCard.classList.remove("image__card_hidden");
+    this.imageCard.classList.add("image__card");
   }
 }
 
