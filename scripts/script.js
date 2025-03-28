@@ -99,13 +99,77 @@ cardsLink.addEventListener("input", saveDisabled);
 // Inicialmente deshabilitar el botón si el formulario no es válido
 saveDisabled();
 
-//Import and implement the classes in the script.js file
-
 //utils.js
-import { Card, Popup, PopupWithImage } from "./utils.js";
+import {
+  Card,
+  Popup,
+  PopupWithImage,
+  PopupWithForm,
+  Section,
+  UserInfo,
+} from "./utils.js";
 
 const popup = new Popup();
 popup.setEventListeners();
+
+// Crear una instancia de UserInfo para manejar la información del usuario
+const userInfo = new UserInfo({
+  nameSelector: ".profile__info-name",
+  jobSelector: ".profile__info-description",
+});
+
+// Crear una instancia de Section para manejar las tarjetas
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new CardManager(item.title, item.link);
+      const cardElement = card.create();
+      cardSection.addItem(cardElement);
+    },
+  },
+  ".grid"
+);
+
+// Comentamos esta línea para evitar duplicar las tarjetas iniciales
+// cardSection.renderItems();
+
+// Crear instancias de PopupWithForm para cada popup con formulario
+const editProfilePopup = new PopupWithForm(
+  document.querySelector("#edit"),
+  (formData) => {
+    // Usar la clase UserInfo para actualizar la información del usuario
+    userInfo.setUserInfo({
+      name: formData.name[0].toUpperCase() + formData.name.slice(1),
+      job: formData.description[0].toUpperCase() + formData.description.slice(1),
+    });
+    editProfilePopup.close();
+  }
+);
+editProfilePopup.setEventListeners();
+
+// Rellenar el formulario con los datos actuales del usuario cuando se abre
+document
+  .querySelector(".profile__info-link")
+  .addEventListener("click", () => {
+    const userData = userInfo.getUserInfo();
+    document.querySelector("#name").value = userData.name;
+    document.querySelector("#description").value = userData.job;
+  });
+
+const addCardPopup = new PopupWithForm(
+  document.querySelector("#card"),
+  (formData) => {
+    // Crear una nueva tarjeta usando CardManager
+    const card = new CardManager(formData.title, formData.url);
+    const cardElement = card.create();
+    // Añadir la tarjeta usando la instancia de Section
+    cardSection.addItem(cardElement);
+    // Cerrar el popup
+    addCardPopup.close();
+  }
+);
+addCardPopup.setEventListeners();
 
 //Card.js
 import { CardManager, CardGenerator } from "./Card.js";
@@ -121,7 +185,10 @@ imageClose.addEventListener("click", () => {
 
 // Cerrar con Escape
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && imageCard.classList.contains("image__card_hidden")) {
+  if (
+    event.key === "Escape" &&
+    imageCard.classList.contains("image__card_hidden")
+  ) {
     imageCard.classList.remove("image__card_hidden");
     imageCard.classList.add("image__card");
   }

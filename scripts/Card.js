@@ -66,11 +66,12 @@ export class CardGenerator extends CardManager {
     grid.prepend(newCard);
   }
   eventListener() {
-    cardsForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      this.generateCards();
-      cardsTitle.value = "";
-      cardsLink.value = "";
-    });
+    // Comentamos este event listener para evitar conflictos con PopupWithForm
+    // cardsForm.addEventListener("submit", (event) => {
+    //   event.preventDefault();
+    //   this.generateCards();
+    //   cardsTitle.value = "";
+    //   cardsLink.value = "";
+    // });
   }
 }

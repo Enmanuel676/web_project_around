@@ -1,8 +1,8 @@
 # Simple PowerShell Web Server
-$port = 8081
+$port = 8082
 $directory = (Get-Location).Path
 
-# Create a listener on port 8081
+# Create a listener on port 8082
 $listener = New-Object System.Net.HttpListener
 $listener.Prefixes.Add("http://localhost:$port/")
 $listener.Start()
@@ -18,10 +18,10 @@ try {
 
         # Get the requested URL path
         $requestUrl = $request.Url.LocalPath
-        $requestUrl = $requestUrl -replace "/", "\"
+        $requestUrl = $requestUrl -replace "/", "\\"
         
         # Default to index.html if root is requested
-        if ($requestUrl -eq "\") {
+        if ($requestUrl -eq "\\") {
             $requestUrl = "\index.html"
         }
         

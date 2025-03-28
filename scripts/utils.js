@@ -5,13 +5,7 @@ const pageEdit = document.querySelector("#edit");
 const exit = document.querySelectorAll(".popup__exit");
 //intial Code Cards
 const addCard = document.querySelector(".profile__info_add");
-const pageCards = document.querySelector("#card");
-const cardsForm = document.querySelector("#cards");
-const cardImage = document.querySelector(".grid__image");
-const imageCard = document.querySelector("#image-card");
-const imageClose = document.querySelector(".image__close");
-const imageName = document.querySelector(".image__name");
-const imageShow = document.querySelector(".image__show");
+
 export class Card {
   constructor(handleCardClick) {
     this.handleCardClick = handleCardClick;
@@ -124,10 +118,11 @@ export class PopupWithImage extends Popup {
   }
 }
 
-class PopupWithForm extends Popup {
+export class PopupWithForm extends Popup {
   constructor(popup, submitForm) {
     super(popup);
     this.submitForm = submitForm;
+    this.form = popup.querySelector(".popup__form");
   }
   _getInputValues() {
     const inputList = this.popup.querySelectorAll(".popup__input");
@@ -139,13 +134,63 @@ class PopupWithForm extends Popup {
   }
   setEventListeners() {
     super.setEventListeners();
-    popup.addEventListener("submit", (evt) => {
+    this.form.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this.submitForm(this._getInputValues());
     });
+
+    const closeIcon = this.popup.querySelector(".popup__exit");
+    if (closeIcon) {
+      closeIcon.addEventListener("click", () => {
+        this.close();
+      });
+    }
   }
   close() {
     super.close();
-    popup.querySelector(".popup__form").reset();
+    if (this.form) {
+      this.form.reset();
+    }
+  }
+}
+
+export class Section {
+  constructor({ items, renderer }, containerSelector) {
+    this.items = items;
+    this.renderer = renderer;
+    this.container = document.querySelector(containerSelector);
+  }
+
+  renderItems() {
+    this.items.forEach((item) => {
+      this.renderer(item);
+    });
+  }
+
+  addItem(element) {
+    this.container.prepend(element);
+  }
+}
+
+export class UserInfo {
+  constructor({ nameSelector, jobSelector }) {
+    this.nameElement = document.querySelector(nameSelector);
+    this.jobElement = document.querySelector(jobSelector);
+  }
+
+  getUserInfo() {
+    return {
+      name: this.nameElement.textContent,
+      job: this.jobElement.textContent,
+    };
+  }
+
+  setUserInfo({ name, job }) {
+    if (name) {
+      this.nameElement.textContent = name;
+    }
+    if (job) {
+      this.jobElement.textContent = job;
+    }
   }
 }
