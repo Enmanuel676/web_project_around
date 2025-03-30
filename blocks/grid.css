@@ -121,7 +121,7 @@
 }
 .image__show {
   position: absolute;
-  max-width: 816px;
+  width: 720px;
   height: 540px;
   left: 250px;
   top: 90px;

@@ -15,7 +15,7 @@
   margin-bottom: 0;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 665px) {
   .header {
     width: 100%;
     margin: 0;

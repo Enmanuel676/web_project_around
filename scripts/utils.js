@@ -87,8 +87,8 @@ export class Popup {
   setEventListeners() {
     edit.addEventListener("click", this._openEdit.bind(this));
     addCard.addEventListener("click", this._openForm.bind(this));
-    document.addEventListener("keydown", this._handleEscClose.bind(this));
-    document.addEventListener("keydown", this._handleEnterClose.bind(this));
+    /* document.addEventListener("keydown", this._handleEscClose.bind(this));
+    document.addEventListener("keydown", this._handleEnterClose.bind(this));*/
     exit.forEach((exit) => {
       exit.addEventListener("click", this.close.bind(this));
     });
@@ -106,15 +106,29 @@ export class PopupWithImage extends Popup {
     this.imageName = document.querySelector(".image__name");
   }
   open(title, link) {
-    this.imageCard.classList.remove("image__card");
-    this.imageCard.classList.add("image__card_hidden");
-    this.imageName.textContent = title;
-    this.imageShow.src = link;
-    this.imageShow.alt = title;
+    // Verificar que imageCard existe antes de manipularlo
+    if (this.imageCard) {
+      this.imageCard.classList.remove("image__card");
+      this.imageCard.classList.add("image__card_hidden");
+      
+      // Verificar que imageName e imageShow existen antes de manipularlos
+      if (this.imageName && this.imageShow) {
+        this.imageName.textContent = title;
+        this.imageShow.src = link;
+        this.imageShow.alt = title;
+      } else {
+        console.error("No se encontraron los elementos imageName o imageShow");
+      }
+    } else {
+      console.error("No se encontró el elemento imageCard");
+    }
   }
+  
   close() {
-    this.imageCard.classList.remove("image__card_hidden");
-    this.imageCard.classList.add("image__card");
+    if (this.imageCard) {
+      this.imageCard.classList.remove("image__card_hidden");
+      this.imageCard.classList.add("image__card");
+    }
   }
 }
 
@@ -135,8 +149,25 @@ export class PopupWithForm extends Popup {
   setEventListeners() {
     super.setEventListeners();
     this.form.addEventListener("submit", (evt) => {
-      evt.preventDefault();
+      evt.preventDefault(); // Prevenir el comportamiento predeterminado
       this.submitForm(this._getInputValues());
+      // Cerrar el popup usando classList directamente
+      this.popup.classList.remove("popup__close");
+      this.popup.classList.add("popup");
+      // Resetear el formulario
+      this.form.reset();
+    });
+
+    this.form.addEventListener("keydown", (evt) => {
+      if (evt.key === "Enter") {
+        evt.preventDefault(); // Prevenir el comportamiento predeterminado
+        this.submitForm(this._getInputValues());
+        // Cerrar el popup usando classList directamente
+        this.popup.classList.remove("popup__close");
+        this.popup.classList.add("popup");
+        // Resetear el formulario
+        this.form.reset();
+      }
     });
 
     const closeIcon = this.popup.querySelector(".popup__exit");
@@ -147,7 +178,10 @@ export class PopupWithForm extends Popup {
     }
   }
   close() {
-    super.close();
+    // Cerrar el popup usando classList directamente
+    this.popup.classList.remove("popup__close");
+    this.popup.classList.add("popup");
+    // Resetear el formulario
     if (this.form) {
       this.form.reset();
     }

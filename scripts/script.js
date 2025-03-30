@@ -49,17 +49,24 @@ function submitForm(a) {
   pageEdit.classList.add("popup");
 }
 pageEdit.addEventListener("submit", submitForm);
-
+pageEdit.addEventListener("keydown", (evt) => {
+  if (evt.key === "Enter") {
+    submitForm(evt);
+  }
+});
 // Disabled Button
 let nombre = document.querySelector("#name");
 let descripcion = document.querySelector("#description");
 
 //Fuction
-editSave.disabled = true;
+editSave.disabled = false;
 function disabledName() {
-  if (nombre.value === "") {
-    editSave.disabled = true;
+  if (nombre.value === "Jacques Cousteau") {
+    editSave.disabled = false;
     editSave.className = "popup__button";
+  } else {
+    editSave.disabled = true;
+    editSave.className = "popup__button_disabled";
   }
 }
 
@@ -141,7 +148,8 @@ const editProfilePopup = new PopupWithForm(
     // Usar la clase UserInfo para actualizar la información del usuario
     userInfo.setUserInfo({
       name: formData.name[0].toUpperCase() + formData.name.slice(1),
-      job: formData.description[0].toUpperCase() + formData.description.slice(1),
+      job:
+        formData.description[0].toUpperCase() + formData.description.slice(1),
     });
     editProfilePopup.close();
   }
@@ -149,13 +157,11 @@ const editProfilePopup = new PopupWithForm(
 editProfilePopup.setEventListeners();
 
 // Rellenar el formulario con los datos actuales del usuario cuando se abre
-document
-  .querySelector(".profile__info-link")
-  .addEventListener("click", () => {
-    const userData = userInfo.getUserInfo();
-    document.querySelector("#name").value = userData.name;
-    document.querySelector("#description").value = userData.job;
-  });
+document.querySelector(".profile__info-link").addEventListener("click", () => {
+  const userData = userInfo.getUserInfo();
+  document.querySelector("#name").value = userData.name;
+  document.querySelector("#description").value = userData.job;
+});
 
 const addCardPopup = new PopupWithForm(
   document.querySelector("#card"),

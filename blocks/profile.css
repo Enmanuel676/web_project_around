@@ -100,8 +100,7 @@
   color: gray;
   background-image: url(../images/profile-add-hover.png);
 }
-
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 665px) {
   .profile {
     display: flex;
     flex-direction: column;
@@ -131,8 +130,8 @@
   }
   .profile__info-link {
     margin: 0;
-    left: 330px;
-    top: 300px;
+    left: 430px;
+    top: 298px;
     height: 18px;
     width: 18px;
   }
@@ -164,6 +163,16 @@
   }
   .profile__info-broma {
     display: none;
+  }
+}
+@media screen and (max-width: 425px) {
+  .profile__info-link {
+    top: 300px;
+  }
+}
+@media screen and (max-width: 440px) {
+  .profile__info-link {
+    left: 330px;
   }
 }
 @media screen and (max-width: 375px) {
