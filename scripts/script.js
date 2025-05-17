@@ -119,6 +119,12 @@ import {
 const popup = new Popup();
 popup.setEventListeners();
 
+//API
+import { Api } from "./Api.js";
+const api = new Api();
+
+api.getUserInfo();
+api.getInitialCards();
 // Crear una instancia de UserInfo para manejar la información del usuario
 const userInfo = new UserInfo({
   nameSelector: ".profile__info-name",
@@ -228,3 +234,13 @@ const validator = new FormValidator({
   errorClass: "popup__error_visible",
 });
 validator.enableValidation();
+
+fetch("https://around-api.es.tripleten-services.com/v1/cards/", {
+  headers: {
+    authorization: "af85156e-e899-4a77-86d2-22db6a5b187f",
+  },
+})
+  .then((res) => res.json())
+  .then((result) => {
+    console.log(result);
+  });

@@ -3,6 +3,7 @@ const popup = document.querySelectorAll(".popup");
 const edit = document.querySelector(".profile__info-link");
 const pageEdit = document.querySelector("#edit");
 const exit = document.querySelectorAll(".popup__exit");
+
 //intial Code Cards
 const addCard = document.querySelector(".profile__info_add");
 
@@ -110,7 +111,7 @@ export class PopupWithImage extends Popup {
     if (this.imageCard) {
       this.imageCard.classList.remove("image__card");
       this.imageCard.classList.add("image__card_hidden");
-      
+
       // Verificar que imageName e imageShow existen antes de manipularlos
       if (this.imageName && this.imageShow) {
         this.imageName.textContent = title;
@@ -123,7 +124,7 @@ export class PopupWithImage extends Popup {
       console.error("No se encontró el elemento imageCard");
     }
   }
-  
+
   close() {
     if (this.imageCard) {
       this.imageCard.classList.remove("image__card_hidden");
