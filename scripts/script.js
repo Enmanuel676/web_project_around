@@ -7,7 +7,7 @@ const main = document.querySelector(".main");
 
 let pageEdit = document.querySelector("#edit");
 let editSave = document.querySelector("#button");
-const initialCards = [
+let initialCards = [
   {
     title: "Valle de Yosemite",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg",
@@ -33,7 +33,7 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
   },
 ];
-
+console.log(initialCards);
 //Fuction
 function submitForm(a) {
   a.preventDefault();
@@ -120,10 +120,18 @@ const popup = new Popup();
 popup.setEventListeners();
 
 //API
-import { Api } from "./Api.js";
-const api = new Api();
+import Api from "./Api.js";
+const api = new Api({
+  urls: "https://around-api.es.tripleten-services.com/v1",
+  headers: {
+    authorization: "af85156e-e899-4a77-86d2-22db6a5b187f",
+    "Content-Type": "application/json",
+  },
+});
 
-api.getUserInfo();
+let pruebe = [];
+pruebe = api.getInitialUser();
+console.log(pruebe);
 api.getInitialCards();
 // Crear una instancia de UserInfo para manejar la información del usuario
 const userInfo = new UserInfo({
@@ -132,9 +140,9 @@ const userInfo = new UserInfo({
 });
 
 // Crear una instancia de Section para manejar las tarjetas
-const cardSection = new Section(
+/*const cardSection = new Section(
   {
-    items: initialCards,
+    items: initialCard,
     renderer: (item) => {
       const card = new CardManager(item.title, item.link);
       const cardElement = card.create();
@@ -142,7 +150,7 @@ const cardSection = new Section(
     },
   },
   ".grid"
-);
+);/*
 
 // Comentamos esta línea para evitar duplicar las tarjetas iniciales
 // cardSection.renderItems();
@@ -172,12 +180,10 @@ document.querySelector(".profile__info-link").addEventListener("click", () => {
 const addCardPopup = new PopupWithForm(
   document.querySelector("#card"),
   (formData) => {
-    // Crear una nueva tarjeta usando CardManager
     const card = new CardManager(formData.title, formData.url);
     const cardElement = card.create();
-    // Añadir la tarjeta usando la instancia de Section
     cardSection.addItem(cardElement);
-    // Cerrar el popup
+    addCardPopup.close();
     addCardPopup.close();
   }
 );
@@ -216,12 +222,12 @@ const card = new CardManager();
 card.deleteCards();
 const generateCards = new CardGenerator();
 generateCards.eventListener();
-initialCards.forEach((element) => {
+/*initialCards.forEach((element) => {
   const card = new CardManager(element.title, element.link);
   card.create();
 });
 
-card.eventListeners();
+card.eventListeners();*/
 
 //FormValidator.js
 import { FormValidator } from "./FormValidator.js";
