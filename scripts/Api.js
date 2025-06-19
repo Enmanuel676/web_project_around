@@ -2,6 +2,8 @@
 const infoName = document.querySelector(".profile__info-name");
 const infoDesc = document.querySelector(".profile__info-description");
 const infoAvatar = document.querySelector(".profile__avatar");
+const infoNameValue = document.querySelector("#name");
+const infoDescValue = document.querySelector("#description");
 import { CardManager } from "./Card.js";
 
 class Api {
@@ -25,7 +27,9 @@ class Api {
       })
       .then((data) => {
         infoName.textContent = data.name;
+        infoNameValue.value = data.name;
         infoDesc.textContent = data.about;
+        infoDescValue.value = data.about;
         infoAvatar.src = data.avatar;
         infoAvatar.alt = data.name;
       });

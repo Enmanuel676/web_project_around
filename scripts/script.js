@@ -129,10 +129,9 @@ const api = new Api({
   },
 });
 
-let pruebe = [];
-pruebe = api.getInitialUser();
-console.log(pruebe);
+api.getInitialUser();
 api.getInitialCards();
+
 // Crear una instancia de UserInfo para manejar la información del usuario
 const userInfo = new UserInfo({
   nameSelector: ".profile__info-name",
