@@ -57,10 +57,7 @@
   height: 10px;
   padding: 7px;
 }
-.profile__info-link:hover {
-  border: 1px solid gray;
-  color: gray;
-}
+
 .profile__info-description {
   margin-top: 12px;
   height: 22px;
