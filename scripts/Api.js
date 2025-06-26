@@ -5,6 +5,7 @@ const infoAvatar = document.querySelector(".profile__avatar");
 const infoNameValue = document.querySelector("#name");
 const infoDescValue = document.querySelector("#description");
 import { CardManager } from "./Card.js";
+import { Popup, PopupWithForm } from "./utils.js";
 
 class Api {
   constructor(options) {
@@ -32,6 +33,24 @@ class Api {
         infoDescValue.value = data.about;
         infoAvatar.src = data.avatar;
         infoAvatar.alt = data.name;
+      });
+  }
+  setProfileInfo(name, about) {
+    fetch(`${this.urls}/users/me`, {
+      method: "PATCH",
+      headers: this.headers,
+      body: JSON.stringify({
+        name: name,
+        about: about,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((datas) => {
+        infoName.textContent = datas.name;
+        infoDesc.textContent = datas.about;
+        infoAvatar.alt = datas.name;
       });
   }
   getInitialCards() {

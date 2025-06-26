@@ -1,10 +1,3 @@
-const title = document.querySelector(".edit__profile_title");
-const imageCard = document.querySelector("#image-card");
-const imageShow = document.querySelector(".image__show");
-const imageName = document.querySelector(".image__name");
-const exit = document.querySelectorAll(".popup__exit");
-const main = document.querySelector(".main");
-
 let pageEdit = document.querySelector("#edit");
 let editSave = document.querySelector("#button");
 let initialCards = [
@@ -34,26 +27,7 @@ let initialCards = [
   },
 ];
 console.log(initialCards);
-//Fuction
-function submitForm(a) {
-  a.preventDefault();
-  const names = document.querySelector(".profile__info-name");
-  const description = document.querySelector(".profile__info-description");
-  var nombre = document.querySelector("#name").value;
-  var descripcion = document.querySelector("#description").value;
-  names.textContent = `${nombre[0].toUpperCase() + nombre.slice(1)}`;
-  description.textContent = `${
-    descripcion[0].toUpperCase() + descripcion.slice(1)
-  }`;
-  pageEdit.classList.remove("popup__close");
-  pageEdit.classList.add("popup");
-}
-pageEdit.addEventListener("submit", submitForm);
-pageEdit.addEventListener("keydown", (evt) => {
-  if (evt.key === "Enter") {
-    submitForm(evt);
-  }
-});
+
 // Disabled Button
 let nombre = document.querySelector("#name");
 let descripcion = document.querySelector("#description");
@@ -131,7 +105,20 @@ const api = new Api({
 
 api.getInitialUser();
 api.getInitialCards();
+pageEdit.addEventListener("submit", function (e) {
+  e.preventDefault();
+  let name = document.querySelector("#name").value;
+  let about = document.querySelector("#description").value;
+  api.setProfileInfo(name, about);
+  pageEdit.classList.remove("popup__close");
+  pageEdit.classList.add("popup");
+});
 
+pageEdit.addEventListener("keydown", (evt) => {
+  if (evt.key === "Enter") {
+    api.setProfileInfo(evt);
+  }
+});
 // Crear una instancia de UserInfo para manejar la información del usuario
 const userInfo = new UserInfo({
   nameSelector: ".profile__info-name",
