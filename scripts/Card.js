@@ -61,7 +61,7 @@ export class CardGenerator extends CardManager {
   generateCards() {
     const title = cardsTitle.value;
     const link = cardsLink.value;
-    const cardManager = new CardManager(name, link);
+    const cardManager = new CardManager(title, link);
     const newCard = cardManager.create();
     grid.prepend(newCard);
   }

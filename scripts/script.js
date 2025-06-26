@@ -105,18 +105,33 @@ const api = new Api({
 
 api.getInitialUser();
 api.getInitialCards();
-pageEdit.addEventListener("submit", function (e) {
-  e.preventDefault();
+//Profile Info
+pageEdit.addEventListener("submit", function (f) {
+  f.preventDefault();
   let name = document.querySelector("#name").value;
   let about = document.querySelector("#description").value;
   api.setProfileInfo(name, about);
-  pageEdit.classList.remove("popup__close");
-  pageEdit.classList.add("popup");
+  popup.close();
 });
 
 pageEdit.addEventListener("keydown", (evt) => {
   if (evt.key === "Enter") {
     api.setProfileInfo(evt);
+  }
+});
+
+//Cards Form for Generate Cards
+const cardForm = document.querySelector("#card");
+cardForm.addEventListener("submit", function (c) {
+  c.preventDefault();
+  let name = document.querySelector("#title").value;
+  let link = document.querySelector("#url").value;
+  api.setCards(name, link);
+  popup.close;
+});
+cardForm.addEventListener("keydown", (evt) => {
+  if (evt.key === "Enter") {
+    api.setCards(evt);
   }
 });
 // Crear una instancia de UserInfo para manejar la información del usuario

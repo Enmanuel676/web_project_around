@@ -47,10 +47,8 @@ class Api {
       .then((res) => {
         return res.json();
       })
-      .then((datas) => {
-        infoName.textContent = datas.name;
-        infoDesc.textContent = datas.about;
-        infoAvatar.alt = datas.name;
+      .then(() => {
+        this.getInitialUser();
       });
   }
   getInitialCards() {
@@ -69,6 +67,22 @@ class Api {
           card.create();
         });
         card.eventListeners();
+      });
+  }
+  setCards(name, link) {
+    fetch(`${this.urls}/cards/`, {
+      method: "POST",
+      headers: this.headers,
+      body: JSON.stringify({
+        name: name,
+        link: link,
+      }),
+    })
+      .then((resp) => {
+        return resp.json();
+      })
+      .then(() => {
+        this.getInitialCards();
       });
   }
 }
