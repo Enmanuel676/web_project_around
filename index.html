@@ -89,12 +89,12 @@
             <button class="popup__button" type="submit" id="save">Crear</button>
           </form>
         </div>
-        <div class="card__eliminate" id="eliminate">
+        <div class="card__eliminate-hidden" id="eliminate">
           <button class="popup__exit popup__exit-eliminate"></button>
-          <div class="card__eliminate-form">
+          <form class="card__eliminate-form">
             <h3 class="card__eliminate-title">¿Estás seguro?</h3>
-            <button class="card__eliminate-button">Sí</button>
-          </div>
+            <button class="card__eliminate-button" type="submit">Sí</button>
+          </form>
         </div>
         <div class="grid"></div>
         <template id="template">
@@ -104,7 +104,7 @@
               <img src="" alt="" class="grid__image" />
             </div>
             <h3 class="grid__name"></h3>
-            <button class="grid__like"></button>
+            <button class="grid__like" type="submit"></button>
           </div>
         </template>
         <div class="image__card" id="image-card">

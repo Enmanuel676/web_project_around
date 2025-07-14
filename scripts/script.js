@@ -95,6 +95,7 @@ popup.setEventListeners();
 
 //API
 import Api from "./Api.js";
+import { PopupWithConfirmation } from "./Api.js";
 const api = new Api({
   urls: "https://around-api.es.tripleten-services.com/v1",
   headers: {
@@ -102,9 +103,10 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
-
+const popupWithConfirmation = new PopupWithConfirmation();
 api.getInitialUser();
 api.getInitialCards();
+
 //Profile Info
 pageEdit.addEventListener("submit", function (f) {
   f.preventDefault();
@@ -127,13 +129,30 @@ cardForm.addEventListener("submit", function (c) {
   let name = document.querySelector("#title").value;
   let link = document.querySelector("#url").value;
   api.setCards(name, link);
-  popup.close;
 });
 cardForm.addEventListener("keydown", (evt) => {
   if (evt.key === "Enter") {
     api.setCards(evt);
   }
 });
+
+//Delete Cards
+const popupConfirmation = new PopupWithConfirmation();
+const form = document.querySelector(".card__eliminate-form");
+const grid = document.querySelector(".grid");
+const exit = document.querySelector(".popup__exit-eliminate");
+grid.addEventListener("click", () => {
+  popupConfirmation.getAttributes();
+});
+exit.addEventListener("click", () => {
+  popupConfirmation.close();
+});
+popupConfirmation.getAttributes();
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  api.deleteCards(form.id);
+});
+
 // Crear una instancia de UserInfo para manejar la información del usuario
 const userInfo = new UserInfo({
   nameSelector: ".profile__info-name",
@@ -151,13 +170,3 @@ const validator = new FormValidator({
   errorClass: "popup__error_visible",
 });
 validator.enableValidation();
-
-fetch("https://around-api.es.tripleten-services.com/v1/cards/", {
-  headers: {
-    authorization: "af85156e-e899-4a77-86d2-22db6a5b187f",
-  },
-})
-  .then((res) => res.json())
-  .then((result) => {
-    console.log(result);
-  });

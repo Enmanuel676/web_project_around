@@ -10,9 +10,11 @@ import { Popup, PopupWithImage } from "./utils.js";
 const popup = new Popup();
 
 export class CardManager {
-  constructor(name, link) {
+  constructor(name, link, id, isLiked) {
     this.name = name;
     this.link = link;
+    this._id = id;
+    this.isLiked = isLiked;
     this.gridCard = template.querySelector(".grid__card").cloneNode(true);
     this.cardTitle = this.gridCard.querySelector(".grid__name");
     this.cardImage = this.gridCard.querySelector(".grid__image");
@@ -22,17 +24,19 @@ export class CardManager {
     this.PopupWithImage = new PopupWithImage();
   }
   create() {
+    this.cardLike.setAttribute("isLiked", this.isLiked);
+    this.gridCard.setAttribute("id", this._id);
     this.cardTitle.textContent = this.name;
     this.cardImage.src = this.link;
     this.cardImage.alt = this.name;
     this.setEventListeners();
     grid.append(this.gridCard);
-    return this.gridCard;
+    return this.gridCard, console.log(this.gridCard);
   }
 
   setEventListeners() {
     this.cardImage.addEventListener("click", () => {
-      this.PopupWithImage.open(this.name, thisname);
+      this.PopupWithImage.open(this.name, this.link);
     });
 
     this.cardLike.addEventListener("click", () => {
@@ -55,7 +59,7 @@ export class CardManager {
     });
   }
 }
-
+2;
 //Add Cards
 export class CardGenerator extends CardManager {
   generateCards() {

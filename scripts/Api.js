@@ -59,14 +59,20 @@ class Api {
         return res.json();
       })
       .then((data) => {
-        let prueba = data;
-        console.log(prueba);
+        let cards = data;
+
         const card = new CardManager();
-        prueba.forEach((element) => {
-          const card = new CardManager(element.name, element.link);
+        cards.forEach((element) => {
+          const card = new CardManager(
+            element.name,
+            element.link,
+            element._id,
+            element.isLiked
+          );
           card.create();
         });
         card.eventListeners();
+        console.log(data);
       });
   }
   setCards(name, link) {
@@ -82,8 +88,58 @@ class Api {
         return resp.json();
       })
       .then(() => {
-        this.getInitialCards();
+        setTimeout(location.reload(), 5000);
+        const saveButton = document.querySelector(".popup__button");
+        saveButton.textContent = "Guardando...";
       });
+  }
+  deleteCards(id) {
+    fetch(`${this.urls}/cards/${id}`, {
+      method: "DELETE",
+      headers: this.headers,
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then(() => {
+        setTimeout(location.reload(), 3000);
+      });
+  }
+  likeCard(id) {
+    fetch(`${this.urls}/cards/${id}/likes`, {
+      method: "DELETE",
+      headers: this.headers,
+    })
+      .then((resp) => resp.json())
+      .then((likes) => {});
+  }
+}
+
+export class PopupWithConfirmation {
+  constructor() {
+    this.form = document.querySelector(".card__eliminate-form");
+    this.grid = document.querySelector(".grid");
+    this.popup = document.querySelector(".card__eliminate-hidden");
+    this.exit = document.querySelector(".popup__exit-eliminate");
+  }
+  getAttributes() {
+    this.grid.addEventListener("click", (event) => {
+      if (event.target.classList.contains("card__delete")) {
+        const card = event.target.closest(".grid__card");
+        this.form.setAttribute("id", card.id);
+        console.log(card.id);
+        this.open();
+        console.log(card.id);
+      }
+    });
+  }
+  open() {
+    this.popup.classList.remove("card__eliminate-hidden");
+    this.popup.classList.add("card__eliminate");
+  }
+  close() {
+    this.popup.classList.remove("card__eliminate");
+    this.popup.classList.add("card__eliminate-hidden");
   }
 }
 

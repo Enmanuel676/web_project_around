@@ -4,7 +4,7 @@
 .card__eliminate {
   width: 100%;
   height: 1210px;
-  backdrop-filter: blur(1px);
+  backdrop-filter: blur(2px);
   position: absolute;
   top: 0;
   right: 0;
@@ -12,14 +12,14 @@
 }
 .popup__exit-eliminate {
   position: absolute;
-  top: 260px;
+  top: 360px;
 }
 .card__eliminate-form {
   width: 430px;
   height: 181px;
   background-color: #fff;
   position: absolute;
-  top: 300px;
+  top: 400px;
   left: 425px;
 }
 .card__eliminate-title {
@@ -44,6 +44,7 @@
   margin-top: 10px;
   margin-left: 36px;
   border-radius: 2px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1025px) {
