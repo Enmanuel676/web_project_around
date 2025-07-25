@@ -113,7 +113,8 @@ pageEdit.addEventListener("submit", function (f) {
   let name = document.querySelector("#name").value;
   let about = document.querySelector("#description").value;
   api.setProfileInfo(name, about);
-  popup.close();
+  const save = document.querySelector(".popup__button_disabled");
+  save.textContent = "Guardando...";
 });
 
 pageEdit.addEventListener("keydown", (evt) => {
@@ -121,14 +122,35 @@ pageEdit.addEventListener("keydown", (evt) => {
     api.setProfileInfo(evt);
   }
 });
+//Edit Avatar
+const avatar = document.querySelector(".profile__avatar");
+const avatarExitPopup = document.querySelector(".popup__exit_edit-avatar");
+const avatarPopup = document.querySelector(".edit__avatar-hidden");
+const avatarForm = document.querySelector(".edit__avatar-form");
+
+avatar.addEventListener("click", () => {
+  avatarPopup.classList.remove("edit__avatar-hidden");
+  avatarPopup.classList.add("edit__avatar");
+});
+avatarExitPopup.addEventListener("click", () => {
+  avatarPopup.classList.remove("edit__avatar");
+  avatarPopup.classList.add("edit__avatar-hidden");
+});
+
+avatarForm.addEventListener("submit", (a) => {
+  a.preventDefault();
+  const avatarInput = document.querySelector("#avatar").value;
+  api.changeAvatar(avatarInput);
+});
 
 //Cards Form for Generate Cards
 const cardForm = document.querySelector("#card");
 cardForm.addEventListener("submit", function (c) {
-  c.preventDefault();
   let name = document.querySelector("#title").value;
   let link = document.querySelector("#url").value;
   api.setCards(name, link);
+  const savingCard = document.querySelector("#save");
+  savingCard.textContent = "Creando...";
 });
 cardForm.addEventListener("keydown", (evt) => {
   if (evt.key === "Enter") {
@@ -153,12 +175,51 @@ form.addEventListener("submit", (event) => {
   api.deleteCards(form.id);
 });
 
-// Crear una instancia de UserInfo para manejar la información del usuario
-const userInfo = new UserInfo({
-  nameSelector: ".profile__info-name",
-  jobSelector: ".profile__info-description",
+const imageCard = document.querySelector("#image-card");
+const imageClose = document.querySelector(".image__close");
+
+imageClose.addEventListener("click", () => {
+  imageCard.classList.remove("image__card_hidden");
+  imageCard.classList.add("image__card");
 });
 
+imageCard.addEventListener("dblclick", (e) => {
+  if (e.target.classList.contains("image__card_hidden")) {
+    imageCard.classList.remove("image__card_hidden");
+    imageCard.classList.add("image__card");
+  }
+});
+
+//Like and Dislike
+grid.addEventListener("click", (event) => {
+  if (event.target.classList.contains("grid__like")) {
+    const likeButton = event.target;
+    const cardElement = likeButton.closest(".grid__card");
+    const cardId = cardElement.id;
+    const isLiked = likeButton.classList.contains("grid__like_active");
+
+    api
+      .like(cardId, isLiked)
+      .then((updatedCard) => {
+        // La API devuelve el estado de 'isLiked' directamente
+        if (updatedCard.isLiked) {
+          likeButton.classList.add("grid__like_active");
+        } else {
+          likeButton.classList.remove("grid__like_active");
+        }
+
+        // Actualizar el contador de likes si existe
+        const likeCount = cardElement.querySelector(".grid__like-count");
+        if (likeCount) {
+          // Asegurarse de que updatedCard.likes existe antes de acceder a su longitud
+          likeCount.textContent = updatedCard.likes
+            ? updatedCard.likes.length
+            : 0;
+        }
+      })
+      .catch((err) => console.log(err)); // Añadir un catch para errores
+  }
+});
 //FormValidator.js
 import { FormValidator } from "./FormValidator.js";
 const validator = new FormValidator({

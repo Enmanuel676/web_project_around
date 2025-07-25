@@ -5,7 +5,21 @@
 }
 
 .profile__avatar {
+  display: inline-block;
+
   width: 13.605%;
+  border-radius: 100%;
+}
+.profile__avatar:hover {
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  filter: blur(3px);
+
+  transition: 700ms;
 }
 .profile__info {
   margin-left: 30px;

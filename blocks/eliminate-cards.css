@@ -1,0 +1,122 @@
+.card__eliminate-hidden {
+  display: none;
+}
+.card__eliminate {
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(2px);
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 2;
+}
+.popup__exit-eliminate {
+  position: absolute;
+  top: 360px;
+}
+.card__eliminate-form {
+  width: 430px;
+  height: 181px;
+  background-color: #fff;
+  position: absolute;
+  top: 400px;
+  left: 425px;
+}
+.card__eliminate-title {
+  color: #000;
+  width: 358px;
+
+  height: 23px;
+  margin-left: 34px;
+  margin-top: 34px;
+  font-family: "Inter";
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+}
+.card__eliminate-button {
+  color: #fff;
+  background-color: #000;
+  width: 358px;
+  height: 50px;
+  margin-top: 10px;
+  margin-left: 36px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1025px) {
+  .card__eliminate-form {
+    left: 300px;
+  }
+  .popup__exit-eliminate {
+    left: 730px;
+  }
+}
+@media screen and (max-width: 881px) {
+  .card__eliminate-form {
+    left: 200px;
+  }
+  .popup__exit-eliminate {
+    left: 630px;
+  }
+}
+@media screen and (max-width: 665px) {
+  .card__eliminate-form {
+    width: 280px;
+    height: 230px;
+    top: 136px;
+  }
+  .popup__exit-eliminate {
+    top: 105px;
+    left: 450px;
+    height: 26px;
+    background-size: 26px;
+  }
+  .card__eliminate-title {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 40px;
+  }
+  .card__eliminate-button {
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 16px;
+  }
+}
+@media screen and (max-width: 568px) {
+  .card__eliminate-form {
+    left: 150px;
+  }
+  .popup__exit-eliminate {
+    left: 400px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .card__eliminate-form {
+    left: 70px;
+  }
+  .popup__exit-eliminate {
+    left: 320px;
+  }
+}
+@media screen and (max-width: 365px) {
+  .card__eliminate-form {
+    left: 40px;
+  }
+  .popup__exit-eliminate {
+    left: 290px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .card__eliminate-form {
+    left: 20px;
+  }
+  .popup__exit-eliminate {
+    left: 270px;
+  }
+}

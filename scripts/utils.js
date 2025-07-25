@@ -124,12 +124,9 @@ export class PopupWithImage extends Popup {
       console.error("No se encontró el elemento imageCard");
     }
   }
-
   close() {
-    if (this.imageCard) {
-      this.imageCard.classList.remove("image__card_hidden");
-      this.imageCard.classList.add("image__card");
-    }
+    this.imageCard.classList.remove("image__card_hidden");
+    this.imageCard.classList.add("image__card");
   }
 }
 
@@ -149,14 +146,10 @@ export class PopupWithForm extends Popup {
   }
   setEventListeners() {
     super.setEventListeners();
-    this.form.addEventListener("submit", (evt) => {
-      evt.preventDefault(); // Prevenir el comportamiento predeterminado
-      this.submitForm(this._getInputValues());
-      // Cerrar el popup usando classList directamente
-      this.popup.classList.remove("popup__close");
-      this.popup.classList.add("popup");
-      // Resetear el formulario
+    this.popup.addEventListener("dblclick", (evt) => {
+      if (evt.target.classList.contains("popup__close")) {
       this.form.reset();
+    }
     });
 
     this.form.addEventListener("keydown", (evt) => {

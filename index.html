@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alrededor de los EEUU</title>
     <link rel="stylesheet" href="pages/index.css" />
+
     <link rel="icon" href="./images/favicon.png" />
   </head>
   <body>
@@ -20,6 +21,7 @@
       <main class="main">
         <div class="profile">
           <img src="" class="profile__avatar" alt="Profile-Avatar" />
+
           <div class="profile__info">
             <h1 class="profile__info-name">?</h1>
             <button class="profile__info-link"></button>
@@ -89,6 +91,20 @@
             <button class="popup__button" type="submit" id="save">Crear</button>
           </form>
         </div>
+        <div class="edit__avatar-hidden">
+          <button class="popup__exit popup__exit_edit-avatar"></button>
+          <form class="edit__avatar-form" type="submit">
+            <h3 class="edit__avatar-title">Cambiar foto de perfil</h3>
+            <input
+              class="edit__avatar-input"
+              placeholder="Ingrese la URL"
+              value=""
+              id="avatar"
+            />
+            <button class="edit__avatar-button">Guardar</button>
+          </form>
+        </div>
+
         <div class="card__eliminate-hidden" id="eliminate">
           <button class="popup__exit popup__exit-eliminate"></button>
           <form class="card__eliminate-form">

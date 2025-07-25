@@ -24,15 +24,20 @@ class Api {
       headers: this.headers,
     })
       .then((res) => {
-        return res.json();
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
       })
       .then((data) => {
+        this.userId = data._id; // Guardar el ID del usuario
         infoName.textContent = data.name;
         infoNameValue.value = data.name;
         infoDesc.textContent = data.about;
         infoDescValue.value = data.about;
         infoAvatar.src = data.avatar;
         infoAvatar.alt = data.name;
+        return data, console.log(data); // Devolver los datos para poder usarlos después
       });
   }
   setProfileInfo(name, about) {
@@ -48,7 +53,25 @@ class Api {
         return res.json();
       })
       .then(() => {
+        const popup = new Popup();
+        popup.close();
         this.getInitialUser();
+        const save = document.querySelector(".popup__button_disabled");
+        save.textContent = "Guardar";
+      });
+  }
+  changeAvatar(avatar) {
+    fetch(`${this.urls}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this.headers,
+      body: JSON.stringify({
+        avatar: avatar,
+      }),
+    })
+      .then((resp) => resp.json)
+      .then((data) => {
+        setTimeout(location.reload(), 3000);
+        const avatarInput = document.querySelector("#avatar");
       });
   }
   getInitialCards() {
@@ -71,8 +94,6 @@ class Api {
           );
           card.create();
         });
-        card.eventListeners();
-        console.log(data);
       });
   }
   setCards(name, link) {
@@ -88,9 +109,7 @@ class Api {
         return resp.json();
       })
       .then(() => {
-        setTimeout(location.reload(), 5000);
-        const saveButton = document.querySelector(".popup__button");
-        saveButton.textContent = "Guardando...";
+        setTimeout(location.reload(), 3000);
       });
   }
   deleteCards(id) {
@@ -105,13 +124,17 @@ class Api {
         setTimeout(location.reload(), 3000);
       });
   }
-  likeCard(id) {
-    fetch(`${this.urls}/cards/${id}/likes`, {
-      method: "DELETE",
+  like(id, isLiked) {
+    const method = isLiked ? "DELETE" : "PUT";
+    return fetch(`${this.urls}/cards/${id}/likes`, {
+      method: method,
       headers: this.headers,
-    })
-      .then((resp) => resp.json())
-      .then((likes) => {});
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
   }
 }
 
@@ -127,9 +150,7 @@ export class PopupWithConfirmation {
       if (event.target.classList.contains("card__delete")) {
         const card = event.target.closest(".grid__card");
         this.form.setAttribute("id", card.id);
-        console.log(card.id);
         this.open();
-        console.log(card.id);
       }
     });
   }

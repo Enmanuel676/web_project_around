@@ -19,6 +19,9 @@
 .card__image {
   position: relative;
 }
+.card__delete_hidden{
+  display: none;
+}
 .card__delete {
   position: absolute;
   background-image: url(../images/delete-card.png);

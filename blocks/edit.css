@@ -4,10 +4,10 @@
 
 .popup__close {
   display: block;
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
-  height: 1200px;
+  height: 100%;
   left: 0;
   backdrop-filter: blur(1px);
   color: #000;
@@ -116,9 +116,6 @@
   width: 83.256%;
 }
 @media screen and (max-width: 1005px) {
-  .popup__close {
-    height: 1574px;
-  }
   .popup__form {
     height: 330px;
   }
@@ -144,9 +141,6 @@
 }
 
 @media screen and (max-width: 665px) {
-  .popup__close {
-    height: 2723px;
-  }
   .popup__exit {
     top: 105px;
     left: 465px;
@@ -182,9 +176,6 @@
   }
 }
 @media screen and (max-width: 425px) {
-  .popup__close {
-    height: 2730px;
-  }
   .popup__form {
     height: 330px;
   }
@@ -198,3 +189,4 @@
     left: 264.62px;
   }
 }
+

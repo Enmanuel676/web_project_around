@@ -6,7 +6,7 @@ const grid = document.querySelector(".grid");
 const template = document.querySelector("#template").content;
 const gridCard = template.querySelector(".grid__card").cloneNode(true);
 import { Popup, PopupWithImage } from "./utils.js";
-
+import Api from "./Api.js";
 const popup = new Popup();
 
 export class CardManager {
@@ -24,24 +24,42 @@ export class CardManager {
     this.PopupWithImage = new PopupWithImage();
   }
   create() {
-    this.cardLike.setAttribute("isLiked", this.isLiked);
     this.gridCard.setAttribute("id", this._id);
+    this.cardLike.setAttribute("id", this._id);
+    this.gridCard.setAttribute("isliked", this.isLiked);
+    if (this.isLiked) {
+      this.cardLike.classList.add("grid__like_active");
+    }
     this.cardTitle.textContent = this.name;
     this.cardImage.src = this.link;
     this.cardImage.alt = this.name;
     this.setEventListeners();
     grid.append(this.gridCard);
-    return this.gridCard, console.log(this.gridCard);
+    return this.gridCard;
   }
 
   setEventListeners() {
     this.cardImage.addEventListener("click", () => {
       this.PopupWithImage.open(this.name, this.link);
     });
-
-    this.cardLike.addEventListener("click", () => {
-      this.cardLike.classList.toggle("grid__like_active");
+    this.imageClose.addEventListener("click", () => {
+      this.PopupWithImage.close();
     });
+    /*this.cardLike.addEventListener("click", (event) => {
+      const like = this.cardLike.getAttribute("like");
+
+      if (like === "true") {
+        const api = new Api({
+          urls: "https://around-api.es.tripleten-services.com/v1",
+          headers: {
+            authorization: "af85156e-e899-4a77-86d2-22db6a5b187f",
+            "Content-Type": "application/json",
+          },
+        });
+        api.like(this.gridCard.id);
+        console.log(like);
+      }
+    });*/
   }
 
   eventListeners() {
@@ -49,17 +67,8 @@ export class CardManager {
       this.cardLike.classList.toggle("grid__like_active");
     });
   }
-
-  deleteCards() {
-    grid.addEventListener("click", (event) => {
-      if (event.target.classList.contains("card__delete")) {
-        const card = event.target.closest(".grid__card");
-        card.remove();
-      }
-    });
-  }
 }
-2;
+
 //Add Cards
 export class CardGenerator extends CardManager {
   generateCards() {
